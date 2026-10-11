@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>FocusFlow — Complete Feature Map</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,300;0,700;0,900;1,300&family=DM+Sans:wght@300;400;500;600&display=swap');
+:root{--bg:#f5f2eb;--surface:#ede9df;--card:#ffffff;--border:#d8d2c4;--ink:#1a1814;--muted:#7a7060;--accent:#c84b31;--accent2:#2d6a4f;--accent3:#1e4d8c;--gold:#b07d2a;--tag-bg:#f0ece3}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.7}
+header{background:var(--ink);color:var(--bg);padding:70px 48px 60px;position:relative;overflow:hidden}
+header::after{content:'FOCUSFLOW';position:absolute;right:-20px;bottom:-30px;font-family:'Fraunces',serif;font-size:160px;font-weight:900;color:rgba(255,255,255,0.04);letter-spacing:-8px;pointer-events:none;white-space:nowrap}
+.h-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+header h1{font-family:'Fraunces',serif;font-size:clamp(36px,7vw,80px);font-weight:900;line-height:1;letter-spacing:-3px;margin-bottom:20px}
+header h1 em{font-style:italic;font-weight:300;color:rgba(245,242,235,0.5)}
+header p{font-size:16px;color:rgba(245,242,235,0.6);max-width:520px;line-height:1.6}
+.h-stats{display:flex;gap:40px;margin-top:40px;flex-wrap:wrap}
+.h-stat .n{font-family:'Fraunces',serif;font-size:36px;font-weight:700;color:var(--bg);display:block;line-height:1}
+.h-stat .l{font-size:12px;color:rgba(245,242,235,0.4);font-family:'DM Mono',monospace;letter-spacing:1px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 28px}
+section{padding:64px 0;border-bottom:1px solid var(--border)}
+section:last-child{border-bottom:none}
+.sec-label{display:flex;align-items:center;gap:12px;margin-bottom:36px}
+.sec-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);min-width:28px}
+.sec-title{font-family:'Fraunces',serif;font-size:28px;font-weight:700;letter-spacing:-1px}
+.sec-line{flex:1;height:1px;background:var(--border)}
+.screen-card{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:20px}
+.sc-head{display:flex;align-items:center;gap:16px;padding:22px 28px;border-bottom:1px solid var(--border);background:var(--surface)}
+.sc-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.sc-name{font-family:'Fraunces',serif;font-size:20px;font-weight:700;letter-spacing:-0.5px}
+.sc-sub{font-size:12px;color:var(--muted);font-family:'DM Mono',monospace;letter-spacing:1px}
+.sc-badge{margin-left:auto;font-family:'DM Mono',monospace;font-size:10px;padding:4px 12px;border-radius:99px;letter-spacing:1px;white-space:nowrap}
+.badge-screen{background:#e8f4f0;color:var(--accent2);border:1px solid #b8ddd0}
+.badge-ai{background:#edf2fb;color:var(--accent3);border:1px solid #b8cef0}
+.sc-body{padding:24px 28px}
+.feat-list{list-style:none}
+.feat-list li{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--surface);align-items:flex-start}
+.feat-list li:last-child{border-bottom:none}
+.feat-icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;margin-top:1px}
+.feat-title{font-weight:600;font-size:14px;margin-bottom:2px}
+.feat-desc{font-size:13px;color:var(--muted);line-height:1.5}
+.flow{display:flex;flex-direction:column;gap:0;margin:20px 0}
+.flow-step{display:flex;gap:16px;position:relative}
+.flow-left{display:flex;flex-direction:column;align-items:center;width:36px;flex-shrink:0}
+.flow-dot{width:36px;height:36px;border-radius:50%;background:var(--ink);color:var(--bg);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:12px;font-weight:500;flex-shrink:0;z-index:1}
+.flow-line{width:2px;flex:1;background:var(--border);min-height:24px}
+.flow-content{flex:1;padding-bottom:28px}
+.flow-content h4{font-weight:600;font-size:15px;margin-bottom:4px}
+.flow-content p{font-size:13px;color:var(--muted)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.mini-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px}
+.mini-card h4{font-family:'Fraunces',serif;font-size:17px;font-weight:700;margin-bottom:6px;letter-spacing:-0.3px}
+.mini-card p{font-size:13px;color:var(--muted)}
+.tag{display:inline-block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:3px 10px;border-radius:99px;margin-bottom:10px}
+.tag-red{background:#fef0eb;color:var(--accent)}
+.tag-grn{background:#e8f4f0;color:var(--accent2)}
+.tag-blu{background:#edf2fb;color:var(--accent3)}
+.tag-gld{background:#fdf5e4;color:var(--gold)}
+.tag-gray{background:var(--tag-bg);color:var(--muted)}
+.ai-row{display:flex;gap:16px;padding:16px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.ai-row:last-child{border-bottom:none}
+.ai-num{font-family:'Fraunces',serif;font-size:32px;font-weight:900;color:var(--border);min-width:40px;line-height:1}
+.ai-info{flex:1}
+.ai-info h4{font-weight:600;font-size:15px}
+.ai-info p{font-size:13px;color:var(--muted);margin-top:2px}
+.ai-meta{text-align:right;min-width:90px}
+.ai-size{font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--ink)}
+.ai-trigger{font-size:11px;color:var(--muted);margin-top:3px}
+.smap{width:100%;border-collapse:collapse}
+.smap th{text-align:left;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:10px 16px;border-bottom:2px solid var(--border);background:var(--surface)}
+.smap td{padding:13px 16px;border-bottom:1px solid var(--surface);font-size:13px;color:var(--muted);vertical-align:top}
+.smap td:first-child{font-weight:600;color:var(--ink)}
+.smap tr:last-child td{border-bottom:none}
+@media(max-width:600px){header{padding:48px 20px 40px}.wrap{padding:0 16px}.sc-head{padding:16px 18px;flex-wrap:wrap}.sc-body{padding:16px 18px}.sc-badge{margin-left:0;margin-top:8px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="h-label">Complete Feature Map — Design Reference</div>
+    <h1>FocusFlow<br/><em>Every Screen,<br/>Every Feature</em></h1>
+    <p>Full breakdown of every screen, every feature, how each works, and what AI powers it — so your design misses nothing.</p>
+    <div class="h-stats">
+      <div class="h-stat"><span class="n">13</span><span class="l">Total Screens</span></div>
+      <div class="h-stat"><span class="n">4</span><span class="l">On-Device AI Models</span></div>
+      <div class="h-stat"><span class="n">5</span><span class="l">Max Workspaces</span></div>
+      <div class="h-stat"><span class="n">~4s</span><span class="l">Filter Speed</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ALL SCREENS TABLE -->
+<section>
+  <div class="wrap">
+    <div class="sec-label"><span class="sec-num">01</span><h2 class="sec-title">All 13 Screens at a Glance</h2><div class="sec-line"></div></div>
+    <div style="overflow-x:auto">
+    <table class="smap">
+      <thead><tr><th>#</th><th>Screen Name</th><th>What User Does Here</th><th>AI Used</th><th>Phase</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Splash / Onboarding</td><td>See intro, create first workspace (forced)</td><td>Models pre-warm silently</td><td><span class="tag tag-grn">Phase 1</span></td></tr>
+        <tr><td>2</td><td>Home — Workspace Tabs + Video Feed</td><td>Switch tabs, scroll filtered YT videos</td><td>MobileBERT + MobileNet</td><td><span class="tag tag-grn">Phase 1</span></td></tr>
+        <tr><td>3</td><td>Create / Edit Workspace</td><td>Name workspace, pick categories, set filter level</td><td>None</td><td><span class="tag tag-grn">Phase 1</span></td></tr>
+        <tr><td>4</td><td>Video Player</td><td>Watch video in-app, see AI score, take notes</td><td>Score display only</td><td><span class="tag tag-grn">Phase 1</span></td></tr>
+        <tr><td>5</td><td>Report Video</td><td>Challenge a blocked video → deep AI re-check</td><td>MiniLM-L6</td><td><span class="tag tag-grn">Phase 1</span></td></tr>
+        <tr><td>6</td><td>AI Assistant Chat</td><td>Ask questions, get timers/plans created by AI</td><td>SmolLM2-360M + MCP</td><td><span class="tag tag-blu">Phase 2</span></td></tr>
+        <tr><td>7</td><td>Productivity Rules Library</td><td>Browse Pomodoro, 80/20, Deep Work etc</td><td>SmolLM2 explains rules</td><td><span class="tag tag-blu">Phase 2</span></td></tr>
+        <tr><td>8</td><td>Visual Explainer (WebView)</td><td>See animated HTML explanation of any rule/concept</td><td>Gemini 2.0 Flash API</td><td><span class="tag tag-blu">Phase 2</span></td></tr>
+        <tr><td>9</td><td>To-Do List</td><td>Add/check tasks; AI auto-populates from chat</td><td>SmolLM2 via MCP</td><td><span class="tag tag-blu">Phase 2</span></td></tr>
+        <tr><td>10</td><td>Timer Screen</td><td>Run Pomodoro / custom focus timers</td><td>SmolLM2 via MCP</td><td><span class="tag tag-blu">Phase 2</span></td></tr>
+        <tr><td>11</td><td>Planner / Schedule</td><td>Daily time-block schedule, AI-generated</td><td>SmolLM2 via MCP</td><td><span class="tag tag-blu">Phase 2</span></td></tr>
+        <tr><td>12</td><td>Workspace Settings</td><td>Edit category, rename, delete workspace tab</td><td>None</td><td><span class="tag tag-grn">Phase 1</span></td></tr>
+        <tr><td>13</td><td>App Settings</td><td>Theme, filter level, strict mode, clear cache</td><td>None</td><td><span class="tag tag-grn">Phase 1</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- SCREEN DETAILS -->
+<section>
+  <div class="wrap">
+    <div class="sec-label"><span class="sec-num">02</span><h2 class="sec-title">Every Screen — Full Feature Detail</h2><div class="sec-line"></div></div>
+
+    <!-- SCREEN 1 -->
+    <div class="screen-card">
+      <div class="sc-head">
+        <div class="sc-icon" style="background:#f0f0e8">🚀</div>
+        <div><div class="sc-name">Screen 1 — Splash & Onboarding</div><div class="sc-sub">First thing user sees on install</div></div>
+        <span class="sc-badge badge-screen">SCREEN</span>
+      </div>
+      <div class="sc-body">
+        <ul class="feat-list">
+          <li><div class="feat-icon" style="background:#f0f0e8">🎬</div><div><div class="feat-title">Animated logo + 3 onboarding slides</div><div class="feat-desc">Swipeable intro cards: "YouTube only for what matters", "AI filters distractions automatically", "Create your focus workspace". Skip button available on slide 2+.</div></div></li>
+          <li><div class="feat-icon" style="background:#e8f4f0">⚙️</div><div><div class="feat-title">Silent AI model pre-warming</div><div class="feat-desc">While user reads the 3 slides, MobileBERT + MobileNet load into GPU memory. By the time user finishes onboarding, AI is warm and ready. User sees nothing — it's invisible.</div></div></li>
+          <li><div class="feat-icon" style="background:#fef0eb">🏷️</div><div><div class="feat-title">Forced first workspace creation</div><div class="feat-desc">After onboarding, user must create at least 1 workspace. Cannot enter app without it. Workspace creation screen opens automatically.</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SCREEN 2 -->
+    <div class="screen-card">
+      <div class="sc-head">
+        <div class="sc-icon" style="background:#edf2fb">🏠</div>
+        <div><div class="sc-name">Screen 2 — Home (Workspace Tabs + Video Feed)</div><div class="sc-sub">The main screen — most of user's time here</div></div>
+        <span class="sc-badge badge-screen">CORE SCREEN</span>
+      </div>
+      <div class="sc-body">
+        <ul class="feat-list">
+          <li><div class="feat-icon" style="background:#edf2fb">📑</div><div><div class="feat-title">Workspace tabs bar</div><div class="feat-desc">Max 5 tabs shown horizontally. Each tab = workspace name + color dot. Active tab is highlighted. Tap to switch instantly. Long-press to rename/delete. "+" button at the end to add new workspace.</div></div></li>
+          <li><div class="feat-icon" style="background:#e8f4f0">🎥</div><div><div class="feat-title">2-column video feed grid</div><div class="feat-desc">Each video card: thumbnail (full width of column), channel name, video title (2 lines max), view count, duration badge. Same density as YouTube app.</div></div></li>
+          <li><div class="feat-icon" style="background:#fef0eb">🔴</div><div><div class="feat-title">Blur/cover layer on unproductive videos</div><div class="feat-desc">AI-blocked videos: thumbnail is blurred (Gaussian blur), title text replaced with "Not in focus category", lock icon on card, semi-transparent colored overlay matching workspace color, not tappable. Long-press shows "Report this?" option.</div></div></li>
+          <li><div class="feat-icon" style="background:#fdf5e4">💀</div><div><div class="feat-title">Skeleton loading cards</div><div class="feat-desc">Before AI finishes, grey shimmer placeholder cards fill the grid instantly. Videos appear one by one as scored — progressive loading. Never shows blank screen.</div></div></li>
+          <li><div class="feat-icon" style="background:#f0f0e8">🔄</div><div><div class="feat-title">Pull-to-refresh + auto-refresh</div><div class="feat-desc">Pull down → fresh YouTube fetch + re-filter. Auto-refreshes every 30 minutes in background while app is open. Badge on tab shows "New videos" when background refresh finds new content.</div></div></li>
+          <li><div class="feat-icon" style="background:#edf2fb">🔍</div><div><div class="feat-title">Search bar</div><div class="feat-desc">Search within the current workspace category. Results ALSO go through AI filter — no distracting results even in search.</div></div></li>
+          <li><div class="feat-icon" style="background:#e8f4f0">🤖</div><div><div class="feat-title">Floating AI Assistant button</div><div class="feat-desc">Round button bottom-right. Tap → AI chat opens as bottom sheet overlay without leaving the feed. Dismiss by swiping down.</div></div></li>
+          <li><div class="feat-icon" style="background:#fef0eb">⏱️</div><div><div class="feat-title">Active timer mini-bar (conditional)</div><div class="feat-desc">Only shows when a timer is running. Thin colored bar at top of screen with time remaining. Tap it to go to full Timer screen.</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SCREEN 3 -->
+    <div class="screen-card">
+      <div class="sc-head">
+        <div class="sc-icon" style="background:#e8f4f0">➕</div>
+        <div><div class="sc-name">Screen 3 — Create / Edit Workspace</div><div class="sc-sub">Modal screen — appears on first launch and when adding tabs</div></div>
+        <span class="sc-badge badge-screen">MODAL</span>
+      </div>
+      <div class="sc-body">
+        <ul class="feat-list">
+          <li><div class="feat-icon" style="background:#e8f4f0">✏️</div><div><div class="feat-title">Workspace name input</div><div class="feat-desc">Text field with placeholder "e.g. Study, Trading, Coding…". Max 20 chars. Auto-suggests name based on category chosen.</div></div></li>
+          <li><div class="feat-icon" style="background:#fef0eb">🏷️</div><div><div class="feat-title">Category tag chips (multi-select)</div><div class="feat-desc">Grid of selectable chips: Education, Mathematics, Programming, Science, Trading, Finance, Design, Fitness, Language, History, Engineering, Medicine, Chess, Music Theory. Select 1–5. These become YouTube search keywords.</div></div></li>
+          <li><div class="feat-icon" style="background:#edf2fb">🎨</div><div><div class="feat-title">Workspace color + icon picker</div><div class="feat-desc">8 color options + emoji icon picker for the tab. Makes each workspace visually distinct at a glance.</div></div></li>
+          <li><div class="feat-icon" style="background:#fdf5e4">🎚️</div><div><div class="feat-title">Filter strictness slider</div><div class="feat-desc">Slider: Relaxed (40) → Balanced (60, default) → Strict (80). Shows preview text: "At 80, only highly relevant videos pass. At 40, borderline videos also show."</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SCREEN 4 -->
+    <div class="screen-card">
+      <div class="sc-head">
+        <div class="sc-icon" style="background:#fef0eb">▶️</div>
+        <div><div class="sc-name">Screen 4 — Video Player</div><div class="sc-sub">Opens on tapping a productive video card</div></div>
+        <span class="sc-badge badge-screen">SCREEN</span>
+      </div>
+      <div class="sc-body">
+        <ul class="feat-list">
+          <li><div class="feat-icon" style="background:#fef0eb">📺</div><div><div class="feat-title">In-app YouTube embed player</div><div class="feat-desc">Video plays inside app via YouTube embed URL in WebView. No switching to YouTube app. Full-screen tap. Landscape auto-rotate. Back button returns to feed at same scroll position.</div></div></li>
+          <li><div class="feat-icon" style="background:#edf2fb">📊</div><div><div class="feat-title">AI Score breakdown badge</div><div class="feat-desc">Below video: "Productivity Score: 84/100". Expandable to show: Text Score (MobileBERT): 87 | Image Score (MobileNet): 76 | Final: 84. User understands why video was allowed.</div></div></li>
+          <li><div class="feat-icon" style="background:#e8f4f0">🚩</div><div><div class="feat-title">"Not Productive" report button</div><div class="feat-desc">For videos that passed filter but user thinks shouldn't have. Tapping this helps app learn over time. Score adjusted in local database.</div></div></li>
+          <li><div class="feat-icon" style="background:#f0f0e8">📝</div><div><div class="feat-title">Quick note field</div><div class="feat-desc">Collapsible text area below player. User jots notes while watching. Saved per video ID in Room database. Persistent across sessions.</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SCREEN 5 -->
+    <div class="screen-card">
+      <div class="sc-head">
+        <div class="sc-icon" style="background:#fdf5e4">🔍</div>
+        <div><div class="sc-name">Screen 5 — Report Video (Deep AI Check)</div><div class="sc-sub">MiniLM-L6 deep-checks a blocked video when user challenges it</div></div>
+        <span class="sc-badge badge-ai">AI — MiniLM-L6</span>
+      </div>
+      <div class="sc-body">
+        <div class="flow">
+          <div class="flow-step"><div class="flow-left"><div class="flow-dot">1</div><div class="flow-line"></div></div><div class="flow-content"><h4>User long-presses a covered/blocked video</h4><p>Bottom sheet appears: "Think this video is relevant to your [Study] workspace?" → "Yes, check again" button.</p></div></div>
+          <div class="flow-step"><div class="flow-left"><div class="flow-dot">2</div><div class="flow-line"></div></div><div class="flow-content"><h4>App fetches full video data</h4><p>Downloads full description + captions/transcript via YouTube API. Loading screen: "Fetching full video content…" ~1–2 seconds.</p></div></div>
+          <div class="flow-step"><div class="flow-left"><div class="flow-dot">3</div><div class="flow-line"></div></div><div class="flow-content"><h4>MiniLM-L6 reads everything</h4><p>Full title + description + captions (~3,000–15,000 words) fed to MiniLM. "Deep analyzing…" shown. ~1.5–2 sec processing.</p></div></div>
+          <div class="flow-step"><div class="flow-left"><div class="flow-dot">4</div><div class="flow-line"></div></div><div class="flow-content"><h4>Verdict screen shown to user</h4><p>✅ "Confirmed productive for [Study]. Video unblocked." OR ❌ "After full analysis, this video is outside your focus category. Stays blocked."</p></div></div>
+          <div class="flow-step"><div class="flow-left"><div class="flow-dot" style="background:var(--accent2)">5</div></div><div class="flow-content"><h4>Score saved to local database</h4><p>Updated score stored per video ID. Next time this video appears → instant decision from cache, no re-analysis needed.</p></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SCREEN 6 -->
+    <div class="screen-card">
+      <div class="sc-head">
+        <div class="sc-icon" style="background:#edf2fb">🤖</div>
+        <div><div class="sc-name">Screen 6 — AI Productivity Assistant</div><div class="sc-sub">SmolLM2-360M + MCP tools — opens as bottom sheet</div></div>
+        <span class="sc-badge badge-ai">AI — SmolLM2</span>
+      </div>
+      <div class="sc-body">
+        <ul class="feat-list">
+          <li><div class="feat-icon" style="background:#edf2fb">💬</div><div><div class="feat-title">Chat interface with message history</div><div class="feat-desc">User types, AI responds in 1–2 sec (on-device). Chat bubbles: user right, AI left. Conversation saved per workspace. Each workspace has its own chat history.</div></div></li>
+          <li><div class="feat-icon" style="background:#e8f4f0">🛠️</div><div><div class="feat-title">MCP Tool Cards in chat</div><div class="feat-desc">When AI creates something, a tool card appears in chat (not just text). Card shows: what was created, preview, "Activate" button. E.g. card: "⏱ 25-min Pomodoro Timer — [Activate]".</div></div></li>
+          <li><div class="feat-icon" style="background:#fef0eb">⚡</div><div><div class="feat-title">Quick prompt chips</div><div class="feat-desc">4 suggestion chips before user types: "Start Pomodoro", "Plan my session", "What is Deep Work?", "Make a to-do list". Tapping fills input — no typing needed.</div></div></li>
+          <li><div class="feat-icon" style="background:#fdf5e4">🎯</div><div><div class="feat-title">Workspace-aware responses</div><div class="feat-desc">"Plan my session" in Study workspace → AI makes a study schedule. Same prompt in Trading workspace → AI makes a trading prep list. AI always knows active workspace context.</div></div></li>
+          <li><div class="feat-icon" style="background:#f0f0e8">📖</div><div><div class="feat-title">Productivity rule explanations</div><div class="feat-desc">User asks "What is the 80/20 rule?" → AI explains: definition, how to apply it today, benefits, common mistakes. Full explanation on-device, no internet.</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SCREEN 7 -->
+    <div class="screen-card">
+      <div class="sc-head">
+        <div class="sc-icon" style="background:#fdf5e4">📚</div>
+        <div><div class="sc-name">Screen 7 — Productivity Rules Library</div><div class="sc-sub">Browse, learn, and apply focus rules — AI explains each</div></div>
+        <span class="sc-badge badge-ai">AI — SmolLM2</span>
+      </div>
+      <div class="sc-body">
+        <ul class="feat-list">
+          <li><div class="feat-icon" style="background:#fdf5e4">🃏</div><div><div class="feat-title">Rules grid (9 rules)</div><div class="feat-desc">Cards for: Pomodoro Technique, 80/20 Rule, Deep Work, Time Blocking, 2-Minute Rule, Eat The Frog, Flow State, 1-3-5 Rule, MIT (Most Important Tasks). Each card: rule name + icon + 1-line tagline.</div></div></li>
+          <li><div class="feat-icon" style="background:#edf2fb">📖</div><div><div class="feat-title">Rule detail page (tap any card)</div><div class="feat-desc">SmolLM2 generates: What is this rule? Step-by-step how to use it. Benefits. Common mistakes. All on-device, no internet needed.</div></div></li>
+          <li><div class="feat-icon" style="background:#e8f4f0">🎬</div><div><div class="feat-title">"Visual Explanation" button</div><div class="feat-desc">Opens Screen 8. Gemini 2.0 Flash generates an animated HTML page with moving diagrams explaining the rule visually. Cached after first load.</div></div></li>
+          <li><div class="feat-icon" style="background:#fef0eb">▶️</div><div><div class="feat-title">"Apply This Rule Now" button</div><div class="feat-desc">One tap → SmolLM2 auto-creates the complete setup for that rule: timers, to-do list, and planner already filled in. User immediately has a working system.</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SCREEN 8 -->
+    <div class="screen-card">
+      <div class="sc-head">
+        <div class="sc-icon" style="background:#e8f4f0">🎨</div>
+        <div><div class="sc-name">Screen 8 — Visual Explainer</div><div class="sc-sub">Animated HTML explanation rendered in WebView — Gemini API</div></div>
+        <span class="sc-badge badge-ai">GEMINI API + FALLBACK</span>
+      </div>
+      <div class="sc-body">
+        <ul class="feat-list">
+          <li><div class="feat-icon" style="background:#e8f4f0">🌐</div><div><div class="feat-title">Full-screen in-app WebView</div><div class="feat-desc">Gemini returns self-contained HTML + CSS animations + JavaScript. Rendered in a WebView fullscreen inside the app. No browser opens. Feels like a native animated screen.</div></div></li>
+          <li><div class="feat-icon" style="background:#fdf5e4">✨</div><div><div class="feat-title">What the animation looks like</div><div class="feat-desc">CSS keyframe animations, SVG diagrams, interactive step-through walkthroughs, 3D-style perspective effects, all explaining the concept visually. E.g. Pomodoro → animated 25-min circle with phases.</div></div></li>
+          <li><div class="feat-icon" style="background:#fef0eb">📦</div><div><div class="feat-title">Offline fallback (SmolLM2)</div><div class="feat-desc">No internet / API limit hit → SmolLM2 generates simpler HTML on-device. Less fancy animation, same information. User never sees an error — fallback is invisible.</div></div></li>
+          <li><div class="feat-icon" style="background:#edf2fb">💾</div><div><div class="feat-title">Permanent cache per rule</div><div class="feat-desc">Once generated, HTML stored in local database. Next view = instant load. Gemini API only called once per rule per device. Zero repeat API cost.</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SCREENS 9-11 -->
+    <div class="screen-card">
+      <div class="sc-head">
+        <div class="sc-icon" style="background:#fef0eb">🛠️</div>
+        <div><div class="sc-name">Screens 9, 10, 11 — To-Do, Timer, Planner</div><div class="sc-sub">Productivity tools — created manually or by SmolLM2 via MCP</div></div>
+        <span class="sc-badge badge-ai">MCP TOOLS</span>
+      </div>
+      <div class="sc-body">
+        <ul class="feat-list">
+          <li><div class="feat-icon" style="background:#e8f4f0">✅</div><div><div class="feat-title">To-Do List (Screen 9)</div><div class="feat-desc">Add tasks manually OR AI populates from chat. Tap to check off. Swipe to delete. Tasks organized per workspace. Completed tasks collapsed at bottom. Task count badge on bottom nav.</div></div></li>
+          <li><div class="feat-icon" style="background:#fef0eb">⏱️</div><div><div class="feat-title">Timer Screen (Screen 10)</div><div class="feat-desc">Large circular countdown ring. Tap to pause/resume. Pomodoro auto-cycle mode (25m focus → 5m break → repeat → 30m long break after 4 cycles). Custom timer creator. Vibration + notification at phase changes. Mini-bar shows on Home when running.</div></div></li>
+          <li><div class="feat-icon" style="background:#edf2fb">📅</div><div><div class="feat-title">Daily Planner (Screen 11)</div><div class="feat-desc">Time-block schedule for today. Hourly rows, drag to resize blocks. AI fills it based on tasks + workspace. Color-coded by workspace. Tap block to start timer for that session.</div></div></li>
+          <li><div class="feat-icon" style="background:#fdf5e4">🤖</div><div><div class="feat-title">How AI creates these via MCP</div><div class="feat-desc">User says in chat "Plan a 2-hour study session" → SmolLM2 outputs JSON MCP call → app creates 4× Pomodoro timers + empty task list + 2-hour planner block → all appear instantly. User just taps "Activate".</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="screen-card">
+      <div class="sc-head">
+        <div class="sc-icon" style="background:#f0f0e8">⚙️</div>
+        <div><div class="sc-name">Screen 13 — App Settings</div><div class="sc-sub">Global controls and preferences</div></div>
+        <span class="sc-badge badge-screen">SCREEN</span>
+      </div>
+      <div class="sc-body">
+        <ul class="feat-list">
+          <li><div class="feat-icon" style="background:#fef0eb">🔒</div><div><div class="feat-title">Strict Mode toggle</div><div class="feat-desc">ON = zero override. Covered videos cannot be long-pressed or challenged. No report button visible. Maximum lockdown.</div></div></li>
+          <li><div class="feat-icon" style="background:#edf2fb">🎚️</div><div><div class="feat-title">Global filter threshold slider</div><div class="feat-desc">Master level affecting all workspaces (unless overridden per-workspace). Range 20–90.</div></div></li>
+          <li><div class="feat-icon" style="background:#e8f4f0">🌓</div><div><div class="feat-title">Theme — Light / Dark / System</div><div class="feat-desc">Three-way toggle. "System" follows phone's dark mode setting automatically.</div></div></li>
+          <li><div class="feat-icon" style="background:#fdf5e4">🗑️</div><div><div class="feat-title">Clear AI score cache</div><div class="feat-desc">Delete all saved video scores → app re-runs AI filter fresh on next load. Useful if filter feels outdated.</div></div></li>
+          <li><div class="feat-icon" style="background:#f0f0e8">ℹ️</div><div><div class="feat-title">About + AI model info</div><div class="feat-desc">Shows: app version, which AI models are installed + their sizes, total storage used by the app.</div></div></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- AI MODELS -->
+<section>
+  <div class="wrap">
+    <div class="sec-label"><span class="sec-num">03</span><h2 class="sec-title">4 On-Device AI Models + 1 Free API</h2><div class="sec-line"></div></div>
+    <div class="mini-card">
+      <div class="ai-row"><div class="ai-num">1</div><div class="ai-info"><div class="tag tag-red">Text Classifier</div><h4>MobileBERT INT8</h4><p>Reads video title → gives 0–100 productivity score per workspace category. Batch processes all 150 titles at once on GPU.</p></div><div class="ai-meta"><div class="ai-size">25 MB</div><div class="ai-trigger">Every video load</div></div></div>
+      <div class="ai-row"><div class="ai-num">2</div><div class="ai-info"><div class="tag tag-grn">Vision Classifier</div><h4>MobileNetV3-Small INT8</h4><p>Looks at thumbnail image → detects if visual is educational (whiteboard/code/chart) or distracting (clickbait face/party/gaming). 35% weight in final score.</p></div><div class="ai-meta"><div class="ai-size">4 MB</div><div class="ai-trigger">Every thumbnail</div></div></div>
+      <div class="ai-row"><div class="ai-num">3</div><div class="ai-info"><div class="tag tag-gld">Deep Check</div><h4>MiniLM-L6 INT8</h4><p>Reads full captions + description (up to 15,000 words). Used only when user reports a blocked video. Gives a deep, accurate verdict. Loads on-demand only.</p></div><div class="ai-meta"><div class="ai-size">22 MB</div><div class="ai-trigger">Report only</div></div></div>
+      <div class="ai-row"><div class="ai-num">4</div><div class="ai-info"><div class="tag tag-blu">On-Device LLM</div><h4>SmolLM2-360M INT4</h4><p>Conversational AI. Explains productivity rules, answers questions, and outputs MCP JSON to create timers/tasks/planners inside the app. Fully offline.</p></div><div class="ai-meta"><div class="ai-size">180 MB</div><div class="ai-trigger">AI chat + rules</div></div></div>
+    </div>
+    <div class="mini-card" style="margin-top:16px;border-left:3px solid var(--accent3)">
+      <div class="tag tag-blu">API — Needs Internet</div>
+      <h4>Gemini 2.0 Flash (Free)</h4>
+      <p>Called only for Visual Explainer screen. Generates animated HTML explanations. Free: 1500 requests/day. Falls back to SmolLM2 when offline. Results cached permanently after first call.</p>
+    </div>
+    <div class="mini-card" style="margin-top:16px;background:var(--ink);color:var(--bg)">
+      <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(245,242,235,0.4);margin-bottom:8px">TOTAL APP SIZE</div>
+      <div style="font-family:'Fraunces',serif;font-size:48px;font-weight:900;line-height:1">~274 MB</div>
+      <p style="color:rgba(245,242,235,0.5);margin-top:8px">Well under your 300 MB budget. 25+4+22+180+43 (code+assets+libs) = 274 MB.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT USER SEES -->
+<section>
+  <div class="wrap">
+    <div class="sec-label"><span class="sec-num">04</span><h2 class="sec-title">User Experience — What They See vs What Happens</h2><div class="sec-line"></div></div>
+    <div class="grid g2">
+      <div class="mini-card"><div class="tag tag-grn">Productive Video Card</div><h4>User sees →</h4><p>Normal thumbnail + title. Tappable. AI Score "87/100" badge visible. No friction, just watch.</p><h4 style="margin-top:12px">Behind the scenes →</h4><p>MobileBERT: 87 + MobileNet: 76 → Fusion: 83. Above threshold (60). Shown normally.</p></div>
+      <div class="mini-card"><div class="tag tag-red">Unproductive Video Card</div><h4>User sees →</h4><p>Blurred thumbnail. "Not in focus category" text. Lock icon. Not tappable. Long-press shows "Report?" option.</p><h4 style="margin-top:12px">Behind the scenes →</h4><p>MobileBERT: 28 + MobileNet: 42 → Fusion: 33. Below threshold. Blur layer applied.</p></div>
+      <div class="mini-card"><div class="tag tag-gld">Reporting a Blocked Video</div><h4>User sees →</h4><p>Long-press → "Check Again" → loading 2s → "✅ Confirmed productive. Unblocked."</p><h4 style="margin-top:12px">Behind the scenes →</h4><p>MiniLM loads → reads 4,000 words of captions → topic detected as algebra tutorial → score updated to 78 → saved to DB → blur removed.</p></div>
+      <div class="mini-card"><div class="tag tag-blu">AI Creates a Timer</div><h4>User sees →</h4><p>"Start Pomodoro for exam prep" → AI chat shows timer card → tap "Activate" → Timer screen with 25-min countdown.</p><h4 style="margin-top:12px">Behind the scenes →</h4><p>SmolLM2 → MCP JSON: create_timer(1500s, "Exam Prep") → Room DB stores it → Timer screen loads from DB.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- NAVIGATION -->
+<section>
+  <div class="wrap">
+    <div class="sec-label"><span class="sec-num">05</span><h2 class="sec-title">Navigation Structure</h2><div class="sec-line"></div></div>
+    <div class="mini-card" style="font-family:'DM Mono',monospace;font-size:13px;line-height:2.2;color:var(--ink)">
+      <strong>BOTTOM NAV (always visible):</strong><br/>
+      🏠 Home &nbsp;|&nbsp; ⏱️ Timer &nbsp;|&nbsp; ✅ To-Do &nbsp;|&nbsp; 📚 Rules &nbsp;|&nbsp; ⚙️ Settings<br/><br/>
+      <strong>HOME:</strong><br/>
+      → Tap workspace tab → feed switches (stays on Home)<br/>
+      → Tap "+" → Create Workspace (modal slides up)<br/>
+      → Tap video card → Video Player screen<br/>
+      → Long-press blocked card → Report modal<br/>
+      → Tap floating AI button → AI Chat (bottom sheet)<br/>
+      → Tap mini-timer bar → Timer screen<br/><br/>
+      <strong>RULES:</strong><br/>
+      → Tap rule card → Rule Detail page<br/>
+      → "Visual Explanation" → WebView fullscreen<br/>
+      → "Apply Rule" → AI auto-creates timer + task list<br/><br/>
+      <strong>AI CHAT (bottom sheet):</strong><br/>
+      → Tool card "Activate" → navigates to Timer / To-Do / Planner
+    </div>
+  </div>
+</section>
+
+<!-- DESIGN CHECKLIST -->
+<section style="border-bottom:none">
+  <div class="wrap">
+    <div class="sec-label"><span class="sec-num">06</span><h2 class="sec-title">Your Complete Design Checklist</h2><div class="sec-line"></div></div>
+    <div style="background:var(--ink);border-radius:20px;padding:36px">
+      <div style="font-family:'DM Mono',monospace;font-size:11px;letter-spacing:2px;color:rgba(245,242,235,0.4);margin-bottom:20px">EVERY STATE YOU NEED TO DESIGN</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:8px;font-size:13px;color:rgba(245,242,235,0.7);font-family:'DM Sans',sans-serif">
+        <div>☐ Splash screen</div>
+        <div>☐ Onboarding slide 1</div>
+        <div>☐ Onboarding slide 2</div>
+        <div>☐ Onboarding slide 3</div>
+        <div>☐ Create Workspace (first time)</div>
+        <div>☐ Home — skeleton loading</div>
+        <div>☐ Home — feed loaded (productive cards)</div>
+        <div>☐ Home — feed loaded (with covered cards)</div>
+        <div>☐ Home — empty state (no results)</div>
+        <div>☐ Home — active timer mini-bar</div>
+        <div>☐ Video card — productive state</div>
+        <div>☐ Video card — covered/blocked state</div>
+        <div>☐ Video Player screen</div>
+        <div>☐ Video Player — AI score expanded</div>
+        <div>☐ Report Video modal</div>
+        <div>☐ Report Video — loading state</div>
+        <div>☐ Report Video — verdict screen (both outcomes)</div>
+        <div>☐ AI Chat — empty (suggestion chips)</div>
+        <div>☐ AI Chat — conversation with tool card</div>
+        <div>☐ Productivity Rules grid</div>
+        <div>☐ Rule Detail page</div>
+        <div>☐ Visual Explainer WebView</div>
+        <div>☐ Timer — idle / setup state</div>
+        <div>☐ Timer — focus running</div>
+        <div>☐ Timer — break state</div>
+        <div>☐ To-Do List screen</div>
+        <div>☐ Planner / Schedule screen</div>
+        <div>☐ Workspace Settings screen</div>
+        <div>☐ App Settings screen</div>
+        <div>☐ Bottom navigation bar</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
